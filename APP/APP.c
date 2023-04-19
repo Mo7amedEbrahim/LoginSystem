@@ -15,94 +15,98 @@
 u8 Entered_Pass[4];
 
 int main(void){
+	/*	Variables Initialization	*/
+	u8 Admin_Registerd 	,	LoginAttempts=0	,	Login_Status = NOT_LOGGED_IN;
 	/*	Initialization	*/
 	PORT_Init();				// Initialize ports
 	LCD_4BitInitialize();		// Initialize LCD in 4-bit mode
 	KPD_Init();					// Initialize Keypad
 	SPI_EEPROM_Init();			// Initialize SPI EEPROM
+	//EEPROM_EraseAll();
 	 /* ------------ */
-	u8 Login,LoginAttempts=0 ;
-	while(1){
-		 // Display welcome message
-		LED_ON(PORTD,LOGGED_OUT);
-		LCD_ClearDisplay4Bit();
-		LCD_GoToXY4Bit(3,0);
-		LCD_WriteString4Bit("Welcome To ");
-		LCD_GoToXY4Bit(2,1);
-		LCD_WriteString4Bit("Login System !");
-		LED_ON(PORTD,LOGGED_OUT);
+	// Display welcome message
+	LED_ON(PORTD,LOGGED_OUT_LED);
+	LCD_ClearDisplay4Bit();
+	LCD_GoToXY4Bit(3,0);
+	LCD_WriteString4Bit("Welcome To ");
+	LCD_GoToXY4Bit(2,1);
+	LCD_WriteString4Bit("Login System !");
+	LED_ON(PORTD,LOGGED_OUT_LED);
+	_delay_ms(700);
+	LCD_ClearDisplay4Bit();
+	EEPROM_ReadByte(LOGIN_STATUS_ADDRESS,&Admin_Registerd);
+
+	// Check if it's the first login
+	if(Admin_Registerd == NOT_REGISTERED){
+		// First login, prompt user to set admin password
+		LCD_WriteString4Bit("First Login");
+		LCD_GoToXY4Bit(0,1);
+		LCD_WriteString4Bit("Set Admin Pass");
 		_delay_ms(700);
 		LCD_ClearDisplay4Bit();
-		EEPROM_ReadByte(LOGIN_STATUS_ADDRESS,&Login);
-		// Check if it's the first login
-		if(Login == FIRST_TIME_LOGIN){
-			// First login, prompt user to set admin password
-			LCD_WriteString4Bit("First Login");
-			LCD_GoToXY4Bit(0,1);
-			LCD_WriteString4Bit("Set Admin Pass");
-			_delay_ms(700);
-			LCD_ClearDisplay4Bit();
-			// Prompt user to enter password and save it
-			LCD_GoToXY4Bit(0,0);
-			LCD_WriteString4Bit("Password : ");
-			LCD_GoToXY4Bit(0,1);
+		// Prompt user to enter password and save it
+		LCD_GoToXY4Bit(0,0);
+		LCD_WriteString4Bit("Password : ");
+		LCD_GoToXY4Bit(0,1);
+		Accept_Password(Entered_Pass);
+		LCD_ClearDisplay4Bit();
+		LCD_GoToXY4Bit(0,0);
+		LCD_WriteString4Bit("Login Successful");
+		Login_Status = LOGGED_IN;
+		// Set login status to indicate first login has occurred
+		SPI_EEPROM_WriteByte(LOGIN_STATUS_ADDRESS,0x11);
+		// Save admin password
+		SaveAdmin_Password(Entered_Pass);
+		_delay_ms(1000);
+	}
+	else if(Admin_Registerd == REGISTERED){
+		while (LoginAttempts < 3) {
+			// Not first login, prompt user to enter password
+			LCD_WriteString4Bit("PLS Enter Pass");
+			LCD_GoToXY4Bit(0, 1);
 			Accept_Password(Entered_Pass);
 			LCD_ClearDisplay4Bit();
-			LCD_GoToXY4Bit(0,0);
-			LCD_WriteString4Bit("Login Successful");
-			// Set login status to indicate first login has occurred
-			SPI_EEPROM_WriteByte(LOGIN_STATUS_ADDRESS,0x11);
-			// Save admin password
-			SaveAdmin_Password(Entered_Pass);
-			_delay_ms(1000);
-
-		}
-		else if(Login == NOT_FIRST_TIME) {
-			while (LoginAttempts < 3) {
-				// Not first login, prompt user to enter password
-			    LCD_WriteString4Bit("PLS Enter Pass");
-			    LCD_GoToXY4Bit(0, 1);
-			    Accept_Password(Entered_Pass);
-			    LCD_ClearDisplay4Bit();
-			    // Check if entered password is correct
-			    if (IsCorrect(Entered_Pass) == CORRECT) {
-			        LCD_WriteString4Bit("Correct Password");
-			        _delay_ms(1000);
-			        LED_OFF(PORTD,LOGGED_OUT);
-			        LED_ON(PORTD,LOGGED_IN);
-			        break;  // Exit the loop if the password is correct
-			    } else {
-			    	// Password is incorrect, prompt user to enter password again
-			        LCD_WriteString4Bit("Wrong Password");
-			        _delay_ms(1000);
-			        LCD_ClearDisplay4Bit();
-			        LoginAttempts++;
-			    }
+			// Check if entered password is correct
+			if (IsCorrect(Entered_Pass) == CORRECT) {
+				LCD_WriteString4Bit("Correct Password");
+				_delay_ms(1000);
+				LED_OFF(PORTD,LOGGED_OUT_LED);
+				LED_ON(PORTD,LOGGED_IN_LED);
+				Login_Status = LOGGED_IN;
+				break;  // Exit the loop if the password is correct
+			} else {
+				// Password is incorrect, prompt user to enter password again
+				LCD_WriteString4Bit("Wrong Password");
+				_delay_ms(1000);
+				LCD_ClearDisplay4Bit();
+				LoginAttempts++;
 			}
 			if(LoginAttempts >= 3) {
 				LCD_ClearDisplay4Bit();
 				LCD_WriteString4Bit("Too many attempts");
 				_delay_ms(1000);
-				//LoginAttempts = 0;
 				break;
 			}
-			else{
-				while(1){
-					/*	Write Your Program Here	*/
-					for(u8 i=0;i<9;i++){
-						LCD_ClearDisplay4Bit();
-						LCD_GoToXY4Bit(i,0);
-						LCD_WriteString4Bit("Welcome!");
-						_delay_ms(100);
-					}
-					for(u8 i=0;i<9;i++){
-						LCD_ClearDisplay4Bit();
-						LCD_GoToXY4Bit(i,1);
-						LCD_WriteString4Bit("Welcome!");
-						_delay_ms(100);
-					}
-				}
+		}
+	}
+	while(1){
+		if(Login_Status == LOGGED_IN){
+			/*	Write Your Program Here	*/
+			for(u8 i=0;i<9;i++){
+				LCD_ClearDisplay4Bit();
+				LCD_GoToXY4Bit(i,0);
+				LCD_WriteString4Bit("Welcome!");
+				_delay_ms(100);
 			}
+			for(u8 i=0;i<9;i++){
+				LCD_ClearDisplay4Bit();
+				LCD_GoToXY4Bit(i,1);
+				LCD_WriteString4Bit("Welcome!");
+				_delay_ms(100);
+			}
+		}
+		else{
+			/*	Do NoThing	*/
 		}
 	}
 	return 0;
