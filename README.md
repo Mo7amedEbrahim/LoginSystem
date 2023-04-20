@@ -18,6 +18,7 @@
 # Soon
 ### LogOut
 ### Add new user
+### Add waiting time while "Too many attempts"
 
 # Media
 ![LoginSystem](https://user-images.githubusercontent.com/31012871/233212814-c4f1b904-6ba9-4dff-b386-ee4408093af1.JPG)
