@@ -12,7 +12,7 @@
 ### First-time login allows setting of admin password
 ### Correct password is required for access
 ### User can only try three times before being locked out
-### Login status is stored in non-volatile EEPROM memory
+### Login status and Admin Password are stored in non-volatile EEPROM memory
 ### Add waiting time while "Too many attempts"
 ### LED indicators show login status (logged out or logged in)
 
@@ -22,4 +22,8 @@
 
 
 # Media
-![LoginSystem](https://user-images.githubusercontent.com/31012871/233212814-c4f1b904-6ba9-4dff-b386-ee4408093af1.JPG)
+
+
+https://user-images.githubusercontent.com/31012871/233392143-5e3a381b-7c35-4b4b-a81c-f5fc31f7f4fe.mp4
+
+
