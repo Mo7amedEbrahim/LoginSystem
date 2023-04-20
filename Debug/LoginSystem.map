@@ -9,7 +9,7 @@ d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/a
 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
                               ./MCAL/SPI/SPI_program.o (__do_copy_data)
 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
-                              ./MCAL/SPI/SPI_program.o (__do_clear_bss)
+                              ./MCAL/TIMER0/TMR0_program.o (__do_clear_bss)
 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
                               ./HAL/LCD/LCD.o (__fixunssfsi)
 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
@@ -45,6 +45,7 @@ Allocating common symbols
 Common symbol       size              file
 
 Entered_Pass        0x4               ./APP/APP.o
+seconds             0x1               ./APP/APP.o
 
 Memory Configuration
 
@@ -60,6 +61,7 @@ signature        0x00840000         0x00000400         rw !x
 Linker script and memory map
 
 LOAD d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
+LOAD ./MCAL/TIMER0/TMR0_program.o
 LOAD ./MCAL/SPI/SPI_program.o
 LOAD ./MCAL/PORT/PORT_program.o
 LOAD ./MCAL/GIE/GIE_program.o
@@ -164,7 +166,7 @@ LOAD d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x4b72
+.text           0x00000000     0x4f7a
  *(.vectors)
  .vectors       0x00000000       0x54 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
                 0x00000000                __vectors
@@ -222,7 +224,6 @@ LOAD d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/
  .text          0x0000008e        0x4 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
                 0x0000008e                __bad_interrupt
                 0x0000008e                __vector_6
-                0x0000008e                __vector_11
                 0x0000008e                __vector_13
                 0x0000008e                __vector_17
                 0x0000008e                __vector_19
@@ -233,10 +234,10 @@ LOAD d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/
                 0x0000008e                __vector_15
                 0x0000008e                __vector_8
                 0x0000008e                __vector_14
-                0x0000008e                __vector_10
                 0x0000008e                __vector_16
                 0x0000008e                __vector_18
                 0x0000008e                __vector_20
+ .text          0x00000092        0x0 ./MCAL/TIMER0/TMR0_program.o
  .text          0x00000092        0x0 ./MCAL/SPI/SPI_program.o
  .text          0x00000092        0x0 ./MCAL/PORT/PORT_program.o
  .text          0x00000092        0x0 ./MCAL/GIE/GIE_program.o
@@ -281,237 +282,258 @@ LOAD d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/
                 0x00000bec                __fpcmp_parts_f
                 0x00000c9e                . = ALIGN (0x2)
  *(.text.*)
+ .text.TMR0_Init
+                0x00000c9e      0x16a ./MCAL/TIMER0/TMR0_program.o
+                0x00000c9e                TMR0_Init
+ .text.TMR0_OvfSetCallBack
+                0x00000e08       0x42 ./MCAL/TIMER0/TMR0_program.o
+                0x00000e08                TMR0_OvfSetCallBack
+ .text.TMR0_CTCSetCallBack
+                0x00000e4a       0x42 ./MCAL/TIMER0/TMR0_program.o
+                0x00000e4a                TMR0_CTCSetCallBack
+ .text.TMR0_SetDutyCycle
+                0x00000e8c       0x26 ./MCAL/TIMER0/TMR0_program.o
+                0x00000e8c                TMR0_SetDutyCycle
+ .text.__vector_11
+                0x00000eb2       0x66 ./MCAL/TIMER0/TMR0_program.o
+                0x00000eb2                __vector_11
+ .text.__vector_10
+                0x00000f18       0x66 ./MCAL/TIMER0/TMR0_program.o
+                0x00000f18                __vector_10
  .text.SPI_InitMaster
-                0x00000c9e       0x8a ./MCAL/SPI/SPI_program.o
-                0x00000c9e                SPI_InitMaster
+                0x00000f7e       0x8a ./MCAL/SPI/SPI_program.o
+                0x00000f7e                SPI_InitMaster
  .text.SPI_InitSlave
-                0x00000d28       0x5c ./MCAL/SPI/SPI_program.o
-                0x00000d28                SPI_InitSlave
+                0x00001008       0x5c ./MCAL/SPI/SPI_program.o
+                0x00001008                SPI_InitSlave
  .text.SPI_Transceive
-                0x00000d84       0x5c ./MCAL/SPI/SPI_program.o
-                0x00000d84                SPI_Transceive
+                0x00001064       0x5c ./MCAL/SPI/SPI_program.o
+                0x00001064                SPI_Transceive
  .text.SPI_SendBufferSynch
-                0x00000de0       0x82 ./MCAL/SPI/SPI_program.o
-                0x00000de0                SPI_SendBufferSynch
+                0x000010c0       0x82 ./MCAL/SPI/SPI_program.o
+                0x000010c0                SPI_SendBufferSynch
  .text.SPI_SendBufferASynch
-                0x00000e62       0xb4 ./MCAL/SPI/SPI_program.o
-                0x00000e62                SPI_SendBufferASynch
+                0x00001142       0xb4 ./MCAL/SPI/SPI_program.o
+                0x00001142                SPI_SendBufferASynch
  .text.SPI_EnableInterrupt
-                0x00000f16       0x1e ./MCAL/SPI/SPI_program.o
-                0x00000f16                SPI_EnableInterrupt
+                0x000011f6       0x1e ./MCAL/SPI/SPI_program.o
+                0x000011f6                SPI_EnableInterrupt
  .text.SPI_DisableInterrupt
-                0x00000f34       0x1e ./MCAL/SPI/SPI_program.o
-                0x00000f34                SPI_DisableInterrupt
+                0x00001214       0x1e ./MCAL/SPI/SPI_program.o
+                0x00001214                SPI_DisableInterrupt
  .text.SPI_GetStatus
-                0x00000f52       0x4a ./MCAL/SPI/SPI_program.o
-                0x00000f52                SPI_GetStatus
+                0x00001232       0x4a ./MCAL/SPI/SPI_program.o
+                0x00001232                SPI_GetStatus
  .text.__vector_12
-                0x00000f9c       0xa4 ./MCAL/SPI/SPI_program.o
-                0x00000f9c                __vector_12
+                0x0000127c       0xa4 ./MCAL/SPI/SPI_program.o
+                0x0000127c                __vector_12
  .text.PORT_Init
-                0x00001040       0x4e ./MCAL/PORT/PORT_program.o
-                0x00001040                PORT_Init
+                0x00001320       0x4e ./MCAL/PORT/PORT_program.o
+                0x00001320                PORT_Init
  .text.GIE_Enable
-                0x0000108e       0x28 ./MCAL/GIE/GIE_program.o
-                0x0000108e                GIE_Enable
+                0x0000136e       0x28 ./MCAL/GIE/GIE_program.o
+                0x0000136e                GIE_Enable
  .text.GIE_Disable
-                0x000010b6       0x28 ./MCAL/GIE/GIE_program.o
-                0x000010b6                GIE_Disable
+                0x00001396       0x28 ./MCAL/GIE/GIE_program.o
+                0x00001396                GIE_Disable
  .text.EXTI_INT0Init
-                0x000010de       0xf4 ./MCAL/EXTI/EXTI_program.o
-                0x000010de                EXTI_INT0Init
+                0x000013be       0xf4 ./MCAL/EXTI/EXTI_program.o
+                0x000013be                EXTI_INT0Init
  .text.EXTI_u8INT0Status
-                0x000011d2       0x6c ./MCAL/EXTI/EXTI_program.o
-                0x000011d2                EXTI_u8INT0Status
+                0x000014b2       0x6c ./MCAL/EXTI/EXTI_program.o
+                0x000014b2                EXTI_u8INT0Status
  .text.EXTI_SetCallBackINT0
-                0x0000123e       0x3e ./MCAL/EXTI/EXTI_program.o
-                0x0000123e                EXTI_SetCallBackINT0
+                0x0000151e       0x3e ./MCAL/EXTI/EXTI_program.o
+                0x0000151e                EXTI_SetCallBackINT0
  .text.__vector_1
-                0x0000127c       0x5a ./MCAL/EXTI/EXTI_program.o
-                0x0000127c                __vector_1
+                0x0000155c       0x5a ./MCAL/EXTI/EXTI_program.o
+                0x0000155c                __vector_1
  .text.EXTI_INT1Init
-                0x000012d6       0xf4 ./MCAL/EXTI/EXTI_program.o
-                0x000012d6                EXTI_INT1Init
+                0x000015b6       0xf4 ./MCAL/EXTI/EXTI_program.o
+                0x000015b6                EXTI_INT1Init
  .text.EXTI_u8INT1Status
-                0x000013ca       0x52 ./MCAL/EXTI/EXTI_program.o
-                0x000013ca                EXTI_u8INT1Status
+                0x000016aa       0x52 ./MCAL/EXTI/EXTI_program.o
+                0x000016aa                EXTI_u8INT1Status
  .text.EXTI_SetCallBackINT1
-                0x0000141c       0x3e ./MCAL/EXTI/EXTI_program.o
-                0x0000141c                EXTI_SetCallBackINT1
+                0x000016fc       0x3e ./MCAL/EXTI/EXTI_program.o
+                0x000016fc                EXTI_SetCallBackINT1
  .text.__vector_2
-                0x0000145a       0x5a ./MCAL/EXTI/EXTI_program.o
-                0x0000145a                __vector_2
+                0x0000173a       0x5a ./MCAL/EXTI/EXTI_program.o
+                0x0000173a                __vector_2
  .text.EXTI_INT2Init
-                0x000014b4       0x7c ./MCAL/EXTI/EXTI_program.o
-                0x000014b4                EXTI_INT2Init
+                0x00001794       0x7c ./MCAL/EXTI/EXTI_program.o
+                0x00001794                EXTI_INT2Init
  .text.EXTI_u8INT2Status
-                0x00001530       0x68 ./MCAL/EXTI/EXTI_program.o
-                0x00001530                EXTI_u8INT2Status
+                0x00001810       0x68 ./MCAL/EXTI/EXTI_program.o
+                0x00001810                EXTI_u8INT2Status
  .text.EXTI_SetCallBackINT2
-                0x00001598       0x3e ./MCAL/EXTI/EXTI_program.o
-                0x00001598                EXTI_SetCallBackINT2
+                0x00001878       0x3e ./MCAL/EXTI/EXTI_program.o
+                0x00001878                EXTI_SetCallBackINT2
  .text.__vector_3
-                0x000015d6       0x5a ./MCAL/EXTI/EXTI_program.o
-                0x000015d6                __vector_3
+                0x000018b6       0x5a ./MCAL/EXTI/EXTI_program.o
+                0x000018b6                __vector_3
  .text.EXTI_DisableINT
-                0x00001630       0x84 ./MCAL/EXTI/EXTI_program.o
-                0x00001630                EXTI_DisableINT
+                0x00001910       0x84 ./MCAL/EXTI/EXTI_program.o
+                0x00001910                EXTI_DisableINT
  .text.DIO_SetPinDirection
-                0x000016b4      0x1fa ./MCAL/DIO/DIO_program.o
-                0x000016b4                DIO_SetPinDirection
+                0x00001994      0x1fa ./MCAL/DIO/DIO_program.o
+                0x00001994                DIO_SetPinDirection
  .text.DIO_SetPortDirection
-                0x000018ae       0xa0 ./MCAL/DIO/DIO_program.o
-                0x000018ae                DIO_SetPortDirection
+                0x00001b8e       0xa0 ./MCAL/DIO/DIO_program.o
+                0x00001b8e                DIO_SetPortDirection
  .text.DIO_SetPinValue
-                0x0000194e      0x1fa ./MCAL/DIO/DIO_program.o
-                0x0000194e                DIO_SetPinValue
+                0x00001c2e      0x1fa ./MCAL/DIO/DIO_program.o
+                0x00001c2e                DIO_SetPinValue
  .text.DIO_TogPinValue
-                0x00001b48      0x11a ./MCAL/DIO/DIO_program.o
-                0x00001b48                DIO_TogPinValue
+                0x00001e28      0x11a ./MCAL/DIO/DIO_program.o
+                0x00001e28                DIO_TogPinValue
  .text.DIO_SetPortValue
-                0x00001c62       0xa0 ./MCAL/DIO/DIO_program.o
-                0x00001c62                DIO_SetPortValue
+                0x00001f42       0xa0 ./MCAL/DIO/DIO_program.o
+                0x00001f42                DIO_SetPortValue
  .text.DIO_u8GetPinValue
-                0x00001d02       0xfe ./MCAL/DIO/DIO_program.o
-                0x00001d02                DIO_u8GetPinValue
+                0x00001fe2       0xfe ./MCAL/DIO/DIO_program.o
+                0x00001fe2                DIO_u8GetPinValue
  .text.SPI_EEPROM_Init
-                0x00001e00       0x34 ./HAL/SPI_EEPROM/SPI_EEPROM.o
-                0x00001e00                SPI_EEPROM_Init
+                0x000020e0       0x34 ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x000020e0                SPI_EEPROM_Init
  .text.SPI_EEPROM_WriteByte
-                0x00001e34       0x6e ./HAL/SPI_EEPROM/SPI_EEPROM.o
-                0x00001e34                SPI_EEPROM_WriteByte
+                0x00002114       0x6e ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x00002114                SPI_EEPROM_WriteByte
  .text.EEPROM_ReadByte
-                0x00001ea2       0x7e ./HAL/SPI_EEPROM/SPI_EEPROM.o
-                0x00001ea2                EEPROM_ReadByte
+                0x00002182       0x7e ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x00002182                EEPROM_ReadByte
  .text.EEPROM_EraseAll
-                0x00001f20       0x3e ./HAL/SPI_EEPROM/SPI_EEPROM.o
-                0x00001f20                EEPROM_EraseAll
+                0x00002200       0x3e ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x00002200                EEPROM_EraseAll
  .text.EEPROM_WriteEnable
-                0x00001f5e       0x2c ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x0000223e       0x2c ./HAL/SPI_EEPROM/SPI_EEPROM.o
  .text.EEPROM_WriteDisable
-                0x00001f8a       0x2c ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x0000226a       0x2c ./HAL/SPI_EEPROM/SPI_EEPROM.o
  .text.EEPROM_ReadStatusRegister
-                0x00001fb6       0x42 ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x00002296       0x42 ./HAL/SPI_EEPROM/SPI_EEPROM.o
  .text.EEPROM_WaitForWriteComplete
-                0x00001ff8       0x2a ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x000022d8       0x2a ./HAL/SPI_EEPROM/SPI_EEPROM.o
  .text.EEPROM_SendAddress
-                0x00002022       0x72 ./HAL/SPI_EEPROM/SPI_EEPROM.o
+                0x00002302       0x72 ./HAL/SPI_EEPROM/SPI_EEPROM.o
  .text.LED_init
-                0x00002094       0x2e ./HAL/LED/LED.o
-                0x00002094                LED_init
- .text.LED_ON   0x000020c2       0x2e ./HAL/LED/LED.o
-                0x000020c2                LED_ON
- .text.LED_OFF  0x000020f0       0x2e ./HAL/LED/LED.o
-                0x000020f0                LED_OFF
+                0x00002374       0x2e ./HAL/LED/LED.o
+                0x00002374                LED_init
+ .text.LED_ON   0x000023a2       0x2e ./HAL/LED/LED.o
+                0x000023a2                LED_ON
+ .text.LED_OFF  0x000023d0       0x2e ./HAL/LED/LED.o
+                0x000023d0                LED_OFF
  .text.LED_Toggle
-                0x0000211e       0x2e ./HAL/LED/LED.o
-                0x0000211e                LED_Toggle
+                0x000023fe       0x2e ./HAL/LED/LED.o
+                0x000023fe                LED_Toggle
  .text.LCD_WriteCommand8Bit
-                0x0000214c       0x34 ./HAL/LCD/LCD.o
-                0x0000214c                LCD_WriteCommand8Bit
+                0x0000242c       0x34 ./HAL/LCD/LCD.o
+                0x0000242c                LCD_WriteCommand8Bit
  .text.LCD_WriteData8Bit
-                0x00002180       0x34 ./HAL/LCD/LCD.o
-                0x00002180                LCD_WriteData8Bit
+                0x00002460       0x34 ./HAL/LCD/LCD.o
+                0x00002460                LCD_WriteData8Bit
  .text.LCD_8BitInitialize
-                0x000021b4       0x2e ./HAL/LCD/LCD.o
-                0x000021b4                LCD_8BitInitialize
+                0x00002494       0x2e ./HAL/LCD/LCD.o
+                0x00002494                LCD_8BitInitialize
  .text.LCD_WriteCommand4Bit
-                0x000021e2       0x4e ./HAL/LCD/LCD.o
-                0x000021e2                LCD_WriteCommand4Bit
+                0x000024c2       0x4e ./HAL/LCD/LCD.o
+                0x000024c2                LCD_WriteCommand4Bit
  .text.LCD_WriteData4Bit
-                0x00002230       0x4e ./HAL/LCD/LCD.o
-                0x00002230                LCD_WriteData4Bit
+                0x00002510       0x4e ./HAL/LCD/LCD.o
+                0x00002510                LCD_WriteData4Bit
  .text.LCD_4BitInitialize
-                0x0000227e       0x2e ./HAL/LCD/LCD.o
-                0x0000227e                LCD_4BitInitialize
+                0x0000255e       0x2e ./HAL/LCD/LCD.o
+                0x0000255e                LCD_4BitInitialize
  .text.LCD_WriteString8Bit
-                0x000022ac       0x5c ./HAL/LCD/LCD.o
-                0x000022ac                LCD_WriteString8Bit
+                0x0000258c       0x5c ./HAL/LCD/LCD.o
+                0x0000258c                LCD_WriteString8Bit
  .text.LCD_GoToXY8Bit
-                0x00002308       0x46 ./HAL/LCD/LCD.o
-                0x00002308                LCD_GoToXY8Bit
+                0x000025e8       0x46 ./HAL/LCD/LCD.o
+                0x000025e8                LCD_GoToXY8Bit
  .text.LCD_WriteNumber8Bit
-                0x0000234e      0x178 ./HAL/LCD/LCD.o
-                0x0000234e                LCD_WriteNumber8Bit
+                0x0000262e      0x178 ./HAL/LCD/LCD.o
+                0x0000262e                LCD_WriteNumber8Bit
  .text.LCD_WriteString4Bit
-                0x000024c6       0x5c ./HAL/LCD/LCD.o
-                0x000024c6                LCD_WriteString4Bit
+                0x000027a6       0x5c ./HAL/LCD/LCD.o
+                0x000027a6                LCD_WriteString4Bit
  .text.LCD_GoToXY4Bit
-                0x00002522       0x46 ./HAL/LCD/LCD.o
-                0x00002522                LCD_GoToXY4Bit
+                0x00002802       0x46 ./HAL/LCD/LCD.o
+                0x00002802                LCD_GoToXY4Bit
  .text.LCD_WriteNumber4Bit
-                0x00002568      0x178 ./HAL/LCD/LCD.o
-                0x00002568                LCD_WriteNumber4Bit
+                0x00002848      0x178 ./HAL/LCD/LCD.o
+                0x00002848                LCD_WriteNumber4Bit
  .text.LCD_ClearDisplay8Bit
-                0x000026e0       0x20 ./HAL/LCD/LCD.o
-                0x000026e0                LCD_ClearDisplay8Bit
+                0x000029c0       0x20 ./HAL/LCD/LCD.o
+                0x000029c0                LCD_ClearDisplay8Bit
  .text.LCD_ClearDisplay4Bit
-                0x00002700       0x20 ./HAL/LCD/LCD.o
-                0x00002700                LCD_ClearDisplay4Bit
+                0x000029e0       0x20 ./HAL/LCD/LCD.o
+                0x000029e0                LCD_ClearDisplay4Bit
  .text.SetDirections8Bit
-                0x00002720       0x2a ./HAL/LCD/LCD.o
+                0x00002a00       0x2a ./HAL/LCD/LCD.o
  .text.SetDirections4Bit
-                0x0000274a       0x2a ./HAL/LCD/LCD.o
+                0x00002a2a       0x2a ./HAL/LCD/LCD.o
  .text.SendEnablePulse
-                0x00002774      0x202 ./HAL/LCD/LCD.o
+                0x00002a54      0x202 ./HAL/LCD/LCD.o
  .text.FunctionSet8Bit
-                0x00002976      0x110 ./HAL/LCD/LCD.o
+                0x00002c56      0x110 ./HAL/LCD/LCD.o
  .text.DisplayOnOffControl8Bit
-                0x00002a86      0x1a8 ./HAL/LCD/LCD.o
+                0x00002d66      0x1a8 ./HAL/LCD/LCD.o
  .text.DisplayClear8Bit
-                0x00002c2e      0x1a8 ./HAL/LCD/LCD.o
+                0x00002f0e      0x1a8 ./HAL/LCD/LCD.o
  .text.EntryModeSet8Bit
-                0x00002dd6      0x110 ./HAL/LCD/LCD.o
+                0x000030b6      0x110 ./HAL/LCD/LCD.o
  .text.FunctionSet4Bit
-                0x00002ee6      0x292 ./HAL/LCD/LCD.o
+                0x000031c6      0x292 ./HAL/LCD/LCD.o
  .text.DisplayOnOffControl4Bit
-                0x00003178      0x32a ./HAL/LCD/LCD.o
+                0x00003458      0x32a ./HAL/LCD/LCD.o
  .text.DisplayClear4Bit
-                0x000034a2      0x32a ./HAL/LCD/LCD.o
+                0x00003782      0x32a ./HAL/LCD/LCD.o
  .text.EntryModeSet4Bit
-                0x000037cc      0x292 ./HAL/LCD/LCD.o
+                0x00003aac      0x292 ./HAL/LCD/LCD.o
  .text.KPD_Init
-                0x00003a5e       0x22 ./HAL/KEYPAD/KPD.o
-                0x00003a5e                KPD_Init
+                0x00003d3e       0x22 ./HAL/KEYPAD/KPD.o
+                0x00003d3e                KPD_Init
  .text.KPD_u8GetPressedKey
-                0x00003a80      0x11c ./HAL/KEYPAD/KPD.o
-                0x00003a80                KPD_u8GetPressedKey
+                0x00003d60      0x11c ./HAL/KEYPAD/KPD.o
+                0x00003d60                KPD_u8GetPressedKey
  .text.RowsInitialization
-                0x00003b9c       0x5e ./HAL/KEYPAD/KPD.o
+                0x00003e7c       0x5e ./HAL/KEYPAD/KPD.o
  .text.ColumnsInitialization
-                0x00003bfa       0x5e ./HAL/KEYPAD/KPD.o
- .text.main     0x00003c58      0xb0e ./APP/APP.o
-                0x00003c58                main
+                0x00003eda       0x5e ./HAL/KEYPAD/KPD.o
+ .text.main     0x00003f38      0xbf4 ./APP/APP.o
+                0x00003f38                main
  .text.Accept_Password
-                0x00004766      0x166 ./APP/APP.o
-                0x00004766                Accept_Password
+                0x00004b2c      0x166 ./APP/APP.o
+                0x00004b2c                Accept_Password
  .text.SaveAdmin_Password
-                0x000048cc       0x86 ./APP/APP.o
-                0x000048cc                SaveAdmin_Password
+                0x00004c92       0x86 ./APP/APP.o
+                0x00004c92                SaveAdmin_Password
  .text.KPD_Press
-                0x00004952       0x26 ./APP/APP.o
-                0x00004952                KPD_Press
+                0x00004d18       0x26 ./APP/APP.o
+                0x00004d18                KPD_Press
  .text.IsCorrect
-                0x00004978       0xd0 ./APP/APP.o
-                0x00004978                IsCorrect
- .text.libgcc   0x00004a48       0x3e d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
-                0x00004a48                __mulsi3
- .text.libgcc   0x00004a86       0x36 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
-                0x00004a86                __divmodsi4
- .text.libgcc   0x00004abc        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .text.libgcc   0x00004abc        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .text.libgcc   0x00004abc        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .text.libgcc   0x00004abc       0x44 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
-                0x00004abc                __udivmodsi4
- .text.libgcc   0x00004b00       0x38 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
-                0x00004b00                __prologue_saves__
- .text.libgcc   0x00004b38       0x36 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
-                0x00004b38                __epilogue_restores__
-                0x00004b6e                . = ALIGN (0x2)
+                0x00004d3e       0xd0 ./APP/APP.o
+                0x00004d3e                IsCorrect
+ .text.WaitingISR
+                0x00004e0e       0x42 ./APP/APP.o
+                0x00004e0e                WaitingISR
+ .text.libgcc   0x00004e50       0x3e d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+                0x00004e50                __mulsi3
+ .text.libgcc   0x00004e8e       0x36 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+                0x00004e8e                __divmodsi4
+ .text.libgcc   0x00004ec4        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .text.libgcc   0x00004ec4        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .text.libgcc   0x00004ec4        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .text.libgcc   0x00004ec4       0x44 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+                0x00004ec4                __udivmodsi4
+ .text.libgcc   0x00004f08       0x38 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+                0x00004f08                __prologue_saves__
+ .text.libgcc   0x00004f40       0x36 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+                0x00004f40                __epilogue_restores__
+                0x00004f76                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00004b6e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
-                0x00004b6e                exit
-                0x00004b6e                _exit
+ .fini9         0x00004f76        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+                0x00004f76                exit
+                0x00004f76                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -530,14 +552,15 @@ LOAD d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00004b6e        0x4 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .fini0         0x00004f76        0x4 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x00004b72                _etext = .
+                0x00004f7a                _etext = .
 
-.data           0x00800060       0xbe load address 0x00004b72
+.data           0x00800060       0xd2 load address 0x00004f7a
                 0x00800060                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800060        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
+ .data          0x00800060        0x0 ./MCAL/TIMER0/TMR0_program.o
  .data          0x00800060        0x0 ./MCAL/SPI/SPI_program.o
  .data          0x00800060        0x0 ./MCAL/PORT/PORT_program.o
  .data          0x00800060        0x0 ./MCAL/GIE/GIE_program.o
@@ -547,106 +570,117 @@ LOAD d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/
  .data          0x00800060        0x0 ./HAL/LED/LED.o
  .data          0x00800060        0x0 ./HAL/LCD/LCD.o
  .data          0x00800060        0x0 ./HAL/KEYPAD/KPD.o
- .data          0x00800060       0x9d ./APP/APP.o
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
- .data          0x008000fd        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
- .data          0x008000fd        0x8 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
-                0x008000fd                __thenan_sf
- .data          0x00800105        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
- .data          0x00800105        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
- .data          0x00800105        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
- .data          0x00800105        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
- .data          0x00800105        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
- .data          0x00800105        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .data          0x00800060       0xab ./APP/APP.o
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .data          0x0080010b        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .data          0x0080010b        0x8 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+                0x0080010b                __thenan_sf
+ .data          0x00800113        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .data          0x00800113        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .data          0x00800113        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .data          0x00800113        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .data          0x00800113        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .data          0x00800113        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
  *(.data*)
  .data.SPI_State
-                0x00800105        0x1 ./MCAL/SPI/SPI_program.o
+                0x00800113        0x1 ./MCAL/SPI/SPI_program.o
  .data.Local_u8KPDRowArr.1256
-                0x00800106        0x4 ./HAL/KEYPAD/KPD.o
+                0x00800114        0x4 ./HAL/KEYPAD/KPD.o
  .data.Local_u8KPDColumnArr.1255
-                0x0080010a        0x4 ./HAL/KEYPAD/KPD.o
+                0x00800118        0x4 ./HAL/KEYPAD/KPD.o
  .data.Local_u8KPDArr.1254
-                0x0080010e       0x10 ./HAL/KEYPAD/KPD.o
+                0x0080011c       0x10 ./HAL/KEYPAD/KPD.o
  *(.rodata)
  *(.rodata*)
+ .rodata.C.0.1451
+                0x0080012c        0x5 ./APP/APP.o
  *(.gnu.linkonce.d*)
-                0x0080011e                . = ALIGN (0x2)
-                0x0080011e                _edata = .
-                0x0080011e                PROVIDE (__data_end, .)
+                0x00800132                . = ALIGN (0x2)
+ *fill*         0x00800131        0x1 00
+                0x00800132                _edata = .
+                0x00800132                PROVIDE (__data_end, .)
 
-.bss            0x0080011e       0x10
-                0x0080011e                PROVIDE (__bss_start, .)
+.bss            0x00800132       0x17
+                0x00800132                PROVIDE (__bss_start, .)
  *(.bss)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
- .bss           0x0080011e        0x0 ./MCAL/SPI/SPI_program.o
- .bss           0x0080011e        0x0 ./MCAL/PORT/PORT_program.o
- .bss           0x0080011e        0x0 ./MCAL/GIE/GIE_program.o
- .bss           0x0080011e        0x0 ./MCAL/EXTI/EXTI_program.o
- .bss           0x0080011e        0x0 ./MCAL/DIO/DIO_program.o
- .bss           0x0080011e        0x0 ./HAL/SPI_EEPROM/SPI_EEPROM.o
- .bss           0x0080011e        0x0 ./HAL/LED/LED.o
- .bss           0x0080011e        0x0 ./HAL/LCD/LCD.o
- .bss           0x0080011e        0x0 ./HAL/KEYPAD/KPD.o
- .bss           0x0080011e        0x0 ./APP/APP.o
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
- .bss           0x0080011e        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr5/crtm32.o
+ .bss           0x00800132        0x0 ./MCAL/TIMER0/TMR0_program.o
+ .bss           0x00800132        0x0 ./MCAL/SPI/SPI_program.o
+ .bss           0x00800132        0x0 ./MCAL/PORT/PORT_program.o
+ .bss           0x00800132        0x0 ./MCAL/GIE/GIE_program.o
+ .bss           0x00800132        0x0 ./MCAL/EXTI/EXTI_program.o
+ .bss           0x00800132        0x0 ./MCAL/DIO/DIO_program.o
+ .bss           0x00800132        0x0 ./HAL/SPI_EEPROM/SPI_EEPROM.o
+ .bss           0x00800132        0x0 ./HAL/LED/LED.o
+ .bss           0x00800132        0x0 ./HAL/LCD/LCD.o
+ .bss           0x00800132        0x0 ./HAL/KEYPAD/KPD.o
+ .bss           0x00800132        0x0 ./APP/APP.o
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mulsi3.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_divmodsi4.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_exit.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_copy_data.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_clear_bss.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fixunssfsi.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_addsub_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_mul_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_div_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_gt_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_ge_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_lt_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_sf_to_si.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_thenan_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_udivmodsi4.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_prologue.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_epilogue.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_pack_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_unpack_sf.o)
+ .bss           0x00800132        0x0 d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/gcc/avr/4.3.3/avr5\libgcc.a(_fpcmp_parts_sf.o)
  *(.bss*)
+ .bss.TMR0_OvfCallbackFuncPTR
+                0x00800132        0x2 ./MCAL/TIMER0/TMR0_program.o
+ .bss.TMR0_CTCCallbackFuncPTR
+                0x00800134        0x2 ./MCAL/TIMER0/TMR0_program.o
  .bss.pGu8_DataBuffer
-                0x0080011e        0x2 ./MCAL/SPI/SPI_program.o
+                0x00800136        0x2 ./MCAL/SPI/SPI_program.o
  .bss.Gu8_BufferSize
-                0x00800120        0x1 ./MCAL/SPI/SPI_program.o
+                0x00800138        0x1 ./MCAL/SPI/SPI_program.o
  .bss.Gu8_BufferIndex
-                0x00800121        0x1 ./MCAL/SPI/SPI_program.o
+                0x00800139        0x1 ./MCAL/SPI/SPI_program.o
  .bss.SPI_FunctionPTR
-                0x00800122        0x2 ./MCAL/SPI/SPI_program.o
+                0x0080013a        0x2 ./MCAL/SPI/SPI_program.o
  .bss.INT0_FunctionPointer
-                0x00800124        0x2 ./MCAL/EXTI/EXTI_program.o
+                0x0080013c        0x2 ./MCAL/EXTI/EXTI_program.o
  .bss.INT1_FunctionPointer
-                0x00800126        0x2 ./MCAL/EXTI/EXTI_program.o
+                0x0080013e        0x2 ./MCAL/EXTI/EXTI_program.o
  .bss.INT2_FunctionPointer
-                0x00800128        0x2 ./MCAL/EXTI/EXTI_program.o
+                0x00800140        0x2 ./MCAL/EXTI/EXTI_program.o
+ .bss.Counter.1612
+                0x00800142        0x2 ./APP/APP.o
  *(COMMON)
- COMMON         0x0080012a        0x4 ./APP/APP.o
-                0x0080012a                Entered_Pass
-                0x0080012e                PROVIDE (__bss_end, .)
-                0x00004b72                __data_load_start = LOADADDR (.data)
-                0x00004c30                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800144        0x5 ./APP/APP.o
+                0x00800144                Entered_Pass
+                0x00800148                seconds
+                0x00800149                PROVIDE (__bss_end, .)
+                0x00004f7a                __data_load_start = LOADADDR (.data)
+                0x0000504c                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x0080012e        0x0
-                0x0080012e                PROVIDE (__noinit_start, .)
+.noinit         0x00800149        0x0
+                0x00800149                PROVIDE (__noinit_start, .)
  *(.noinit*)
-                0x0080012e                PROVIDE (__noinit_end, .)
-                0x0080012e                _end = .
-                0x0080012e                PROVIDE (__heap_start, .)
+                0x00800149                PROVIDE (__noinit_end, .)
+                0x00800149                _end = .
+                0x00800149                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
  *(.eeprom*)
@@ -664,31 +698,33 @@ LOAD d:/embedded systems/iti/tools/01- imt sdk/imt_sdk_win_64/winavr/bin/../lib/
 .signature
  *(.signature*)
 
-.stab           0x00000000     0x5a78
+.stab           0x00000000     0x612c
  *(.stab)
- .stab          0x00000000      0x7e0 ./MCAL/SPI/SPI_program.o
- .stab          0x000007e0      0x2c4 ./MCAL/PORT/PORT_program.o
-                                0x2d0 (size before relaxing)
- .stab          0x00000aa4      0x288 ./MCAL/GIE/GIE_program.o
-                                0x294 (size before relaxing)
- .stab          0x00000d2c      0x9f0 ./MCAL/EXTI/EXTI_program.o
-                                0x9fc (size before relaxing)
- .stab          0x0000171c      0x7d4 ./MCAL/DIO/DIO_program.o
+ .stab          0x00000000      0x570 ./MCAL/TIMER0/TMR0_program.o
+ .stab          0x00000570      0x7d4 ./MCAL/SPI/SPI_program.o
                                 0x7e0 (size before relaxing)
- .stab          0x00001ef0      0x63c ./HAL/SPI_EEPROM/SPI_EEPROM.o
+ .stab          0x00000d44      0x2c4 ./MCAL/PORT/PORT_program.o
+                                0x2d0 (size before relaxing)
+ .stab          0x00001008      0x288 ./MCAL/GIE/GIE_program.o
+                                0x294 (size before relaxing)
+ .stab          0x00001290      0x9f0 ./MCAL/EXTI/EXTI_program.o
+                                0x9fc (size before relaxing)
+ .stab          0x00001c80      0x7d4 ./MCAL/DIO/DIO_program.o
+                                0x7e0 (size before relaxing)
+ .stab          0x00002454      0x63c ./HAL/SPI_EEPROM/SPI_EEPROM.o
                                 0x648 (size before relaxing)
- .stab          0x0000252c      0x420 ./HAL/LED/LED.o
+ .stab          0x00002a90      0x420 ./HAL/LED/LED.o
                                 0x42c (size before relaxing)
- .stab          0x0000294c     0x1dac ./HAL/LCD/LCD.o
+ .stab          0x00002eb0     0x1dac ./HAL/LCD/LCD.o
                                0x1db8 (size before relaxing)
- .stab          0x000046f8      0x4c8 ./HAL/KEYPAD/KPD.o
+ .stab          0x00004c5c      0x4c8 ./HAL/KEYPAD/KPD.o
                                 0x4d4 (size before relaxing)
- .stab          0x00004bc0      0xeb8 ./APP/APP.o
-                               0x1050 (size before relaxing)
+ .stab          0x00005124     0x1008 ./APP/APP.o
+                               0x11a0 (size before relaxing)
 
-.stabstr        0x00000000     0x249e
+.stabstr        0x00000000     0x27ad
  *(.stabstr)
- .stabstr       0x00000000     0x249e ./MCAL/SPI/SPI_program.o
+ .stabstr       0x00000000     0x27ad ./MCAL/TIMER0/TMR0_program.o
 
 .stab.excl
  *(.stab.excl)

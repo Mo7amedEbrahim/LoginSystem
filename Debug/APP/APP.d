@@ -12,7 +12,14 @@ APP/APP.o APP/APP.o: ../APP/APP.c ../APP/../MCAL/DIO/DIO_interface.h \
   ../APP/../MCAL/GIE/GIE_register.h \
   ../APP/../MCAL/GIE/../../LIB/STD_TYPES.h \
   ../APP/../MCAL/GIE/../../LIB/BIT_MATH.h \
-  ../APP/../MCAL/GIE/../../LIB/Error_States.h ../APP/../HAL/LED/LED.h \
+  ../APP/../MCAL/GIE/../../LIB/Error_States.h \
+  ../APP/../MCAL/TIMER0/TMR0_interface.h \
+  ../APP/../MCAL/TIMER0/TMR0_config.h \
+  ../APP/../MCAL/TIMER0/TMR0_register.h \
+  ../APP/../MCAL/TIMER0/TMR0_private.h \
+  ../APP/../MCAL/TIMER0/../../LIB/STD_TYPES.h \
+  ../APP/../MCAL/TIMER0/../../LIB/BIT_MATH.h \
+  ../APP/../MCAL/TIMER0/../../LIB/Error_States.h ../APP/../HAL/LED/LED.h \
   ../APP/../HAL/LED/../../MCAL/DIO/DIO_interface.h \
   ../APP/../HAL/LED/../../LIB/Error_States.h ../APP/../HAL/KEYPAD/KPD.h \
   ../APP/../HAL/KEYPAD/../../MCAL/DIO/DIO_interface.h \
@@ -59,6 +66,20 @@ APP/APP.o APP/APP.o: ../APP/APP.c ../APP/../MCAL/DIO/DIO_interface.h \
 ../APP/../MCAL/GIE/../../LIB/BIT_MATH.h:
 
 ../APP/../MCAL/GIE/../../LIB/Error_States.h:
+
+../APP/../MCAL/TIMER0/TMR0_interface.h:
+
+../APP/../MCAL/TIMER0/TMR0_config.h:
+
+../APP/../MCAL/TIMER0/TMR0_register.h:
+
+../APP/../MCAL/TIMER0/TMR0_private.h:
+
+../APP/../MCAL/TIMER0/../../LIB/STD_TYPES.h:
+
+../APP/../MCAL/TIMER0/../../LIB/BIT_MATH.h:
+
+../APP/../MCAL/TIMER0/../../LIB/Error_States.h:
 
 ../APP/../HAL/LED/LED.h:
 

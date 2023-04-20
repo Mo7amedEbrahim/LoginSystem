@@ -4,6 +4,7 @@
 #include "../MCAL/PORT/PORT_interface.h"
 #include "../MCAL/SPI/SPI_interface.h"
 #include "../MCAL/GIE/GIE_interface.h"
+#include "../MCAL/TIMER0/TMR0_interface.h"
 /****HAL Includes****/
 #include "../HAL/LED/LED.h"
 #include "../HAL/KEYPAD/KPD.h"
@@ -12,16 +13,24 @@
 /*****************************************/
 #include "APP.h"
 
-u8 Entered_Pass[4];
+u8 Entered_Pass[4],seconds;
 
 int main(void){
 	/*	Variables Initialization	*/
 	u8 Admin_Registerd 	,	LoginAttempts=0	,	Login_Status = NOT_LOGGED_IN;
+	/*	Timer0 Configurations	*/
+	TMR0_t Waiting ={
+			.TIMER0_Mode = CTC_MODE,
+			.TIMER0_Prescaler = TMR0_DIV_BY_8,
+			.TMR0_OCR0 = 250,
+			.ActionFunction = WaitingISR
+	};
 	/*	Initialization	*/
 	PORT_Init();				// Initialize ports
 	LCD_4BitInitialize();		// Initialize LCD in 4-bit mode
 	KPD_Init();					// Initialize Keypad
 	SPI_EEPROM_Init();			// Initialize SPI EEPROM
+	GIE_Enable();				//	Enable Global Interrupt
 	//EEPROM_EraseAll();
 	 /* ------------ */
 	// Display welcome message
@@ -85,7 +94,18 @@ int main(void){
 				LCD_ClearDisplay4Bit();
 				LCD_WriteString4Bit("Too many attempts");
 				_delay_ms(1000);
-				break;
+				/*	Waiting	*/
+				TMR0_Init(&Waiting);
+				TMR0_CTCSetCallBack(&Waiting);
+				LCD_ClearDisplay4Bit();
+				LCD_WriteString4Bit("Please Wait !");
+				while(seconds <= 30){
+					LCD_GoToXY4Bit(0,1);
+					LCD_WriteNumber4Bit(30-seconds);
+				}
+				seconds = 0;
+				LoginAttempts = 0;
+				LCD_ClearDisplay4Bit();
 			}
 		}
 	}
@@ -159,5 +179,14 @@ u8 IsCorrect(u8 *Copy_u8Password) {
     }
 
     return state;
+}
+
+void WaitingISR(void){
+	static u16 Counter = 0;
+	Counter++;
+	if(Counter == 4000){
+		seconds++;
+		Counter = 0;
+	}
 }
 
