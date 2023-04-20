@@ -13,12 +13,13 @@
 ### Correct password is required for access
 ### User can only try three times before being locked out
 ### Login status is stored in non-volatile EEPROM memory
+### Add waiting time while "Too many attempts"
 ### LED indicators show login status (logged out or logged in)
 
 # Soon
 ### LogOut
 ### Add new user
-### Add waiting time while "Too many attempts"
+
 
 # Media
 ![LoginSystem](https://user-images.githubusercontent.com/31012871/233212814-c4f1b904-6ba9-4dff-b386-ee4408093af1.JPG)
